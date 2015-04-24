@@ -1,0 +1,23 @@
+---
+- name: install nginx
+  apt: name=nginx state=latest
+  register: nginx_installed
+  notify:
+    - nginx start
+
+- name: upload nginx config
+  template: src={{ hostname }}.conf dest=/etc/nginx/conf.d/{{ hostname }}.conf ow
+  register: nginx_configured
+  when: nginx_installed|success
+
+- name: create logs dirrectory
+  file: state=directory path=/var/log/nginx/
+  when: nginx_configured|success
+    
+- name: create web root
+  when: nginx_installed|success
+  file: path={{ root }}  mode=775 state=directory
+  when: nginx_configured|success
+  notify:
+    - nginx restart
+

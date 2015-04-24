@@ -1,0 +1,5 @@
+- name: add nginx cofig
+  when: nginx_installed|success
+  template: src={{ hostname }}.conf dest=/etc/nginx/conf.d/{{ hostname }}.conf ow
+  register: nginx_configured
+

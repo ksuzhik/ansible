@@ -1,0 +1,17 @@
+---
+- name: install postgre
+  apt: name={{ item }} state=present
+  with_items:
+    - postgresql
+    - postgresql-contrib
+    - python-psycopg2
+
+
+- name: ensure database is created
+  postgresql_db: name={{dbname}}
+
+- name: ensure user has access to database
+  postgresql_user: db={{dbname}} name={{dbuser}} password={{dbpassword}} priv=ALL
+
+
+

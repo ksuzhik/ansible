@@ -1,0 +1,25 @@
+---
+- hosts: uvs
+  sudo: yes
+  user: root
+  system_packages:
+    - git
+  python_packages:
+    - pip
+    - virtualenv
+  tasks:
+  - name: install system packages
+    apt: pkg={{ item }} state=installed update-cache=yes
+    with_items: {{ system_packages }}
+
+  - name: install python packages
+    apt: pkg={{ item }} state=installed update-cache=yes
+    with_items: {{ python_packages }}
+
+
+- hosts: uvs
+  sudo: yes
+  user: root
+  roles:
+    - nginx
+

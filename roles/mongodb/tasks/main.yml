@@ -1,0 +1,15 @@
+---
+- name: import public key of 10gen repository
+  command: apt-key adv --keyserver keyserver.ubuntu.com --recv 7F0CEB10
+
+- name: add mongodb apt repository url 
+  shell: echo "deb http://repo.mongodb.org/apt/ubuntu "$(lsb_release -sc)"/mongodb-org/3.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb.list
+  notify:
+    - apt update cache
+
+
+- name: install mongodb 
+  apt: name=mongodb-org state=present update_cache=yes
+  notify:
+  - mongodb restart
+

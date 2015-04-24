@@ -1,0 +1,14 @@
+---
+- name: apt update cache
+  apt: update_cache=yes
+
+- name: mongodb start
+  service: name=mongod state=started
+
+- name: mongodb stop
+  service: name=mongod state=stopped
+
+- name: mongodb restart
+  service: name=mongod state=restarted
+
+

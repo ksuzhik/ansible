@@ -1,0 +1,12 @@
+---
+- hosts: uvs
+  sudo: yes
+  user: root
+  tasks:
+    - name: apt update cache
+      apt: update_cache=yes
+
+  roles:
+    #- postgre
+    - mongodb
+

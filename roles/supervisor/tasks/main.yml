@@ -1,0 +1,8 @@
+---
+- name: install supervisor 
+  apt: name=supervisor state=latest
+  register: supervisor_installed
+  notify:
+    - supervisor restart
+
+
